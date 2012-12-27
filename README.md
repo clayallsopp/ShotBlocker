@@ -28,7 +28,7 @@ The `NSError` will occur if the user denies your app access to their photos.
 
 ## Installation
 
-### (CocoaPods)[http://http://cocoapods.org/]
+### [CocoaPods](http://cocoapods.org/)
 
 ```ruby
 dependency 'ShotBlocker'
