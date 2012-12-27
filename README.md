@@ -51,3 +51,8 @@ pod 'ShotBlocker'
 ```objective-c
 #import "ShotBlocker.h"
 ```
+
+### Contact
+
+[Clay Allsopp](http://clayallsopp.com/)
+[@clayallsopp](https://twitter.com/clayallsopp)
