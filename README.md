@@ -7,8 +7,6 @@ Current technique is to poll the user's camera roll and check for new screenshot
 ## Usage
 
 ```objective-c
-#import "ShotBlocker.h"
-
 [[ShotBlocker sharedManager] detectScreenshotWithImageBlock:^(UIImage *screenshot) {
     NSLog(@"Screenshot: %@", screenshot);
 }];
@@ -31,7 +29,11 @@ The `NSError` will occur if the user denies your app access to their photos.
 ### [CocoaPods](http://cocoapods.org/)
 
 ```ruby
-dependency 'ShotBlocker'
+pod 'ShotBlocker'
+```
+
+```objective-c
+#import <ShotBlocker/ShotBlocker.h>
 ```
 
 ### Xcode
@@ -45,3 +47,7 @@ dependency 'ShotBlocker'
 2. Add `ShotBlocker/ShotBlocker.h` and `ShotBlocker/ShotBlocker.m` to your project, but don't copy the files (so the location is relative).
 
 3. Add `AssetsLibrary.framework` to your project
+
+```objective-c
+#import "ShotBlocker.h"
+```
