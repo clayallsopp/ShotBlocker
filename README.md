@@ -2,7 +2,7 @@
 
 Detecting iOS screenshots ala Snapchat and Facebook Poke.
 
-Current technique is to poll the user's camera roll and check for new screenshot-esque images; if you would like to add another method, definitely submit a pull-request!
+Current technique is to poll the user's camera roll and check for new screenshot-esque images; if you would like to add another technique, definitely submit a pull-request!
 
 ## Usage
 
@@ -30,9 +30,7 @@ The `NSError` will occur if the user denies your app access to their photos.
 
 ### [CocoaPods](http://cocoapods.org/)
 
-```ruby
-dependency 'ShotBlocker'
-```
+[Coming soon!](https://github.com/CocoaPods/Specs/pull/941)
 
 ### Xcode
 
