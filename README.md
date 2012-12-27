@@ -30,7 +30,9 @@ The `NSError` will occur if the user denies your app access to their photos.
 
 ### [CocoaPods](http://cocoapods.org/)
 
-[Coming soon!](https://github.com/CocoaPods/Specs/pull/941)
+```ruby
+dependency 'ShotBlocker'
+```
 
 ### Xcode
 
