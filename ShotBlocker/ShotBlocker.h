@@ -16,6 +16,7 @@ typedef void (^ShotBlockerScreenshotErrorBlock)(NSError *error);
 
 + (ShotBlocker *)sharedManager;
 
+// Callbacks run on the main thread.
 - (void)detectScreenshotWithBlock:(ShotBlockerScreenshotBlock)block;
 - (void)detectScreenshotWithBlock:(ShotBlockerScreenshotBlock)block andErrorBlock:(ShotBlockerScreenshotErrorBlock)errorBlock;
 - (void)detectScreenshotWithImageBlock:(ShotBlockerScreenshotImageBlock)block;

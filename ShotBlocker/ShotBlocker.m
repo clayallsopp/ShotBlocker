@@ -150,7 +150,9 @@ static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
     }
   } failureBlock: ^(NSError *error) {
     if (self.errorBlock) {
-      self.errorBlock(error);
+      dispatch_async(dispatch_get_main_queue(), ^() {
+        self.errorBlock(error);
+      });
     }
     else {
       NSLog(@"Failed to access ALAssetsLibrary %@ with error: %@", library, error.localizedDescription);
