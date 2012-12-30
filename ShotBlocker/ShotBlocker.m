@@ -123,12 +123,17 @@ static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
         [self.groupCounts setObject:[NSNumber numberWithInt:group.numberOfAssets] forKey:groupName];
       }
 
+      NSLog(@"Here 1");
       if (group.numberOfAssets > [[self.groupCounts objectForKey:groupName] intValue]) {
         // Chooses the photo at the last index
         [group enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:([group numberOfAssets] - 1)] options:0 usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
           
+          NSLog(@"Here 2");
+
           // The end of the enumeration is signaled by asset == nil.
           if (alAsset) {
+
+            NSLog(@"Here 3");
             ALAssetRepresentation *representation = [alAsset defaultRepresentation];
             UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
             
@@ -163,8 +168,17 @@ static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
 }
 
 + (BOOL)isScreenshot:(UIImage *)image {
-  return fmodf(image.size.width, [UIScreen mainScreen].bounds.size.width) == 0 &&
-          fmodf(image.size.height, [UIScreen mainScreen].bounds.size.height) == 0;
+
+  float scale =  [UIScreen mainScreen].scale;
+  if(UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+    
+    return fmodf(image.size.width, [UIScreen mainScreen].bounds.size.width * scale) == 0 &&
+    fmodf(image.size.height, [UIScreen mainScreen].bounds.size.height) == 0;
+  } else {
+    
+    return fmodf(image.size.height, [UIScreen mainScreen].bounds.size.width) == 0 &&
+    fmodf(image.size.width, [UIScreen mainScreen].bounds.size.height) == 0;
+  }
 }
 
 @end
