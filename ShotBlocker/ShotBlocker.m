@@ -8,24 +8,6 @@
 
 #import "ShotBlocker.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#ifndef	NDEBUG
-#define DLogMethod	NSLog(@"[%s] %@", class_getName([self class]), NSStringFromSelector(_cmd));
-#define DLogPoint(p)	NSLog(@"%f,%f", p.x, p.y);
-#define DLogSize(p)	NSLog(@"%f,%f", p.width, p.height);
-#define DLogRect(p)	NSLog(@"%f,%f %f,%f", p.origin.x, p.origin.y, p.size.width, p.size.height);
-
-CFAbsoluteTime startTime;
-#define D_START			startTime=CFAbsoluteTimeGetCurrent();
-#define D_END			DNSLog(@"[%s] %@ %f seconds", class_getName([self class]), NSStringFromSelector(_cmd), CFAbsoluteTimeGetCurrent() - startTime );
-#else
-#define DLogMethod
-#define DLogPoint(p)
-#define DLogSize(p)
-#define DLogRect(p)
-
-#define D_START
-#define D_END
-#endif
 
 static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
 
