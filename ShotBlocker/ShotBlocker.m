@@ -8,6 +8,24 @@
 
 #import "ShotBlocker.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#ifndef	NDEBUG
+#define DLogMethod	NSLog(@"[%s] %@", class_getName([self class]), NSStringFromSelector(_cmd));
+#define DLogPoint(p)	NSLog(@"%f,%f", p.x, p.y);
+#define DLogSize(p)	NSLog(@"%f,%f", p.width, p.height);
+#define DLogRect(p)	NSLog(@"%f,%f %f,%f", p.origin.x, p.origin.y, p.size.width, p.size.height);
+
+CFAbsoluteTime startTime;
+#define D_START			startTime=CFAbsoluteTimeGetCurrent();
+#define D_END			DNSLog(@"[%s] %@ %f seconds", class_getName([self class]), NSStringFromSelector(_cmd), CFAbsoluteTimeGetCurrent() - startTime );
+#else
+#define DLogMethod
+#define DLogPoint(p)
+#define DLogSize(p)
+#define DLogRect(p)
+
+#define D_START
+#define D_END
+#endif
 
 static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
 
@@ -123,12 +141,17 @@ static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
         [self.groupCounts setObject:[NSNumber numberWithInt:group.numberOfAssets] forKey:groupName];
       }
 
+      NSLog(@"Here 1");
       if (group.numberOfAssets > [[self.groupCounts objectForKey:groupName] intValue]) {
         // Chooses the photo at the last index
         [group enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:([group numberOfAssets] - 1)] options:0 usingBlock:^(ALAsset *alAsset, NSUInteger index, BOOL *innerStop) {
           
+          NSLog(@"Here 2");
+
           // The end of the enumeration is signaled by asset == nil.
           if (alAsset) {
+
+            NSLog(@"Here 3");
             ALAssetRepresentation *representation = [alAsset defaultRepresentation];
             UIImage *latestPhoto = [UIImage imageWithCGImage:[representation fullScreenImage]];
             
@@ -163,8 +186,17 @@ static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
 }
 
 + (BOOL)isScreenshot:(UIImage *)image {
-  return fmodf(image.size.width, [UIScreen mainScreen].bounds.size.width) == 0 &&
-          fmodf(image.size.height, [UIScreen mainScreen].bounds.size.height) == 0;
+
+  float scale =  [UIScreen mainScreen].scale;
+  if(UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+    
+    return fmodf(image.size.width, [UIScreen mainScreen].bounds.size.width * scale) == 0 &&
+    fmodf(image.size.height, [UIScreen mainScreen].bounds.size.height) == 0;
+  } else {
+    
+    return fmodf(image.size.height, [UIScreen mainScreen].bounds.size.width) == 0 &&
+    fmodf(image.size.width, [UIScreen mainScreen].bounds.size.height) == 0;
+  }
 }
 
 @end
