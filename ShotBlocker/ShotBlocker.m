@@ -163,8 +163,16 @@ static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
 }
 
 + (BOOL)isScreenshot:(UIImage *)image {
-  return fmodf(image.size.width, [UIScreen mainScreen].bounds.size.width) == 0 &&
-          fmodf(image.size.height, [UIScreen mainScreen].bounds.size.height) == 0;
+  CGFloat imageWidth = image.size.width;
+  CGFloat imageHeight = image.size.height;
+  CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+  CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+  // imageWidth/Height is in points; screenWidth/Height is in pixels
+  // so on a retina device, screenWidth/Height is 2x.
+  // fmodf takes care of the scale factor for us, so we just compare
+  // widths and heights to see if either orientation matches.
+  return (fmodf(imageWidth, screenWidth) == 0 && fmodf(imageHeight, screenHeight) == 0) ||
+         (fmodf(imageWidth, screenHeight) == 0 && fmodf(imageHeight, screenWidth) == 0);
 }
 
 @end
