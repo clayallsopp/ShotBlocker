@@ -40,9 +40,11 @@ pod 'ShotBlocker'
 
 1. Add ShotBlocker as a [git submodule](http://schacon.github.com/git/user-manual.html#submodules). Here's how to add it as a submodule:
 
-    $ cd rootOfYourGitRepo
-    $ git submodule add https://github.com/clayallsopp/ShotBlocker.git Vendor/ShotBlocker
-    $ git submodule update --init --recursive 
+```
+$ cd rootOfYourGitRepo
+$ git submodule add https://github.com/clayallsopp/ShotBlocker.git Vendor/ShotBlocker
+$ git submodule update --init --recursive
+```
 
 2. Add `ShotBlocker/ShotBlocker.h` and `ShotBlocker/ShotBlocker.m` to your project, but don't copy the files (so the location is relative).
 
