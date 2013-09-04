@@ -81,6 +81,7 @@ static NSTimeInterval const kShotBlockerUpdateInterval = 1.0;
   if (_timer) {
     dispatch_suspend(_timer);
     dispatch_resume(_timer);
+    dispatch_source_cancel(_timer);
     _timer = nil;
   }
   self.groupCounts = nil;
